@@ -27,16 +27,18 @@ Use the following command to start the application:
 java -jar Calculator-1.0-SNAPSHOT.jar --input=instructions.txt
 ```
 
+If no `input` parameter is provided, the application does nothing, it only informs the user about no file.
+
 ## Mandatory parameters
 
-   * `input` whose value is a path to a file containing arithmetical instructions
+   * `--input=<FILE>` a path to a file containing arithmetical instructions.
     
 ## Optional parameters
     
 The application is based on *Spring* *Boot* so there are many others parameters automatically available.
     
-   * `logging.level.root=<LEVEL>` enables printing additional info from loggers enabled for log level <LEVEL> which can be TRACE, DEBUG, INFO, WARN, ERROR or FATAL.
-   * `--debug` is similar to previous one but allows printing Spring internal messages regarding configuration of the app and many other types of messages 
+   * `--logging.level.root=<LEVEL>` enables printing additional info from loggers enabled for log level <LEVEL> which can be TRACE, DEBUG, INFO, WARN, ERROR or FATAL.
+   * `--debug` is similar to previous one but allows printing Spring internal messages regarding configuration of the app and many other types of messages. 
 
 ## Format of an external file
 
