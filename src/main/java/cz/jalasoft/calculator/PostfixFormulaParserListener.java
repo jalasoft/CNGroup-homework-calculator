@@ -1,7 +1,7 @@
 package cz.jalasoft.calculator;
 
 import cz.jalasoft.calculator.formula.Formula;
-import cz.jalasoft.calculator.formula.NumericOperator;
+import cz.jalasoft.calculator.formula.ArithmeticOperator;
 import cz.jalasoft.calculator.formula.Operator;
 import cz.jalasoft.calculator.formula.postfix.PostfixFormula;
 import cz.jalasoft.calculator.formula.postfix.PostfixFormulaBuilder;
@@ -18,6 +18,10 @@ import static cz.jalasoft.calculator.formula.Operand.operand;
 import static cz.jalasoft.calculator.parser.InstructionType.*;
 
 /**
+ * A specialized listener of parsing that builds an instance of {@link Formula} based
+ * on incoming instructions.
+ *
+ *
  * @author Honza Lastovicka (lastovicka@avast.com)
  * @since 2016-11-04.
  */
@@ -26,18 +30,22 @@ public final class PostfixFormulaParserListener implements ArithmeticInstruction
     private static final Map<InstructionType, Operator<Number>> INSTRUCTION_TO_OPERATOR = new EnumMap(InstructionType.class);
 
     static {
-        INSTRUCTION_TO_OPERATOR.put(ADD, NumericOperator.add());
-        INSTRUCTION_TO_OPERATOR.put(SUBTRACT, NumericOperator.subtract());
-        INSTRUCTION_TO_OPERATOR.put(MULTIPLY, NumericOperator.multiply());
-        INSTRUCTION_TO_OPERATOR.put(DIVIDE, NumericOperator.divide());
+        INSTRUCTION_TO_OPERATOR.put(ADD, ArithmeticOperator.add());
+        INSTRUCTION_TO_OPERATOR.put(SUBTRACT, ArithmeticOperator.subtract());
+        INSTRUCTION_TO_OPERATOR.put(MULTIPLY, ArithmeticOperator.multiply());
+        INSTRUCTION_TO_OPERATOR.put(DIVIDE, ArithmeticOperator.divide());
     }
+
     /*
-    public static void main(String[] args) throws Exception {
+    //TODO this could be probably the easier way of implementing
+    //the calculator - build expression (40 + 2) and then
+    //put it to the javascript engine :-)
+    /*
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
         String foo = "40+2";
         System.out.println(engine.eval(foo));
-    }*/
+    */
 
     private final PostfixFormulaBuilder<Number> formulaBuilder = PostfixFormula.newFormula();
     private final List<String> errors = new ArrayList<>();

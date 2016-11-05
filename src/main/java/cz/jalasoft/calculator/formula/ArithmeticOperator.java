@@ -1,10 +1,16 @@
 package cz.jalasoft.calculator.formula;
 
 /**
+ *  An operator representing an arithmetic operator performing
+ *  operations on numbers.
+ *
+ *  This class also provides factory methods for providing
+ *  basic operators like add, subtract or multiply.
+ *
  * @author Honza Lastovicka (lastovicka@avast.com)
  * @since 2016-11-03.
  */
-public interface NumericOperator<T extends Number> extends Operator<T> {
+public interface ArithmeticOperator<T extends Number> extends Operator<T> {
 
     static Operator<Number> add() {
         return new Operator<Number>() {
@@ -18,7 +24,6 @@ public interface NumericOperator<T extends Number> extends Operator<T> {
                 return "Operator[+]";
             }
         };
-        //return (l, r) -> l.doubleValue() + l.doubleValue();
     }
 
     static Operator<Number> subtract() {
@@ -68,5 +73,5 @@ public interface NumericOperator<T extends Number> extends Operator<T> {
     //------------------------------------------------------------------
 
     @Override
-    T apply(T leftOperand, T righOperand);
+    T apply(T leftOperand, T rightOperand);
 }

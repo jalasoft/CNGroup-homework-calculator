@@ -3,6 +3,7 @@ package cz.jalasoft.calculator.parser;
 import java.util.List;
 
 /**
+ *
  * @author Honza Lastovicka (lastovicka@avast.com)
  * @since 2016-11-03.
  */

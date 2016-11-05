@@ -8,7 +8,7 @@ import java.util.LinkedList;
 /**
  * A specialized formula that represents operator and
  * operands in an postfix form. For example: 2,4,+,8,*
- * which is equivalent following traditinal infix form:
+ * which is equivalent following traditional infix form:
  * 2 + 4 * 8 (not considering priority of some operators)
  *
  * @author Honza Lastovicka (lastovicka@avast.com)

@@ -37,6 +37,9 @@ public class Main implements CommandLineRunner {
     @Autowired
     private ApplicationArguments arguments;
 
+    @Autowired
+    private Calculator calculator;
+
     @Override
     public void run(String... strings) {
 
@@ -57,8 +60,8 @@ public class Main implements CommandLineRunner {
             exit(1);
         }
 
-        try {
-            Number result = process(resource.getInputStream());
+        try (InputStream instructionsStream = resource.getInputStream()) {
+            Number result = calculator.calculate(instructionsStream);
             exit(0);
         } catch (IOException exc) {
 
@@ -67,21 +70,6 @@ public class Main implements CommandLineRunner {
             //TODO
             exit(3);
         }
-    }
-
-    private Number process(InputStream input) throws IOException, InvalidInstructionsException {
-        PostfixFormulaParserListener listener = new PostfixFormulaParserListener();
-
-        ArithmeticInstructionsParser parser = new ArithmeticInstructionsParser();
-        parser.registerListener(listener);
-        parser.parse(input);
-
-        Formula<Number> formula = listener.formula();
-        Number result = formula.evaluate();
-
-        System.out.println("Result is " + result);
-
-        return result;
     }
 
     private void exit(int code) {

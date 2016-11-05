@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static cz.jalasoft.calculator.formula.Operand.*;
-import static cz.jalasoft.calculator.formula.NumericOperator.*;
+import static cz.jalasoft.calculator.formula.ArithmeticOperator.*;
 
 /**
  * @author Honza Lastovicka (lastovicka@avast.com)

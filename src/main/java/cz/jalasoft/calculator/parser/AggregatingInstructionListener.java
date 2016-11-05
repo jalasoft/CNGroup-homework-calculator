@@ -8,9 +8,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * A provider of a dynamic proxy of {@link ArithmeticInstructionsParserListener}
- * that dynamically aggregates invocations performed by the
- * parser on the proxy.
+ * This class aggregates all registered listeners of parsing and exposes
+ * the listener interface via method {@link #proxy()}, when the parser
+ * invokes any method on such "dynamic" listener, the proxy delegates the
+ * invocation to all the registered "regular" listeners.
+ *
+ * The reason for this solution is (except love for dynamic proxies) the
+ * ability to avoid using the same code pattern - invocation of all
+ * listeners in a cycle.
+ *
+ * If an exception is thrown by one or more regular listeners, the proxy
+ * throws a runtime exception that has suppressed exceptions thrown by the
+ * regular listeners.
  *
  * @author Honza Lastovicka (lastovicka@avast.com)
  * @since 2016-11-03.
@@ -43,7 +52,7 @@ final class AggregatingInstructionListener {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            Exception exception = new Exception("An error has occurred in listener of arithmetic operation during parsing.");
+            RuntimeException exception = new RuntimeException("An error has occurred in listener of arithmetic operation during parsing.");
 
             listeners.forEach(l -> {
                 try {

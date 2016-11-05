@@ -1,12 +1,25 @@
 package cz.jalasoft.calculator.formula;
 
 /**
+ * A formula segment representing an operand of a binary formula.
+ *
+ * <p>
+ *     This is class is a template of value objects.
+ * </p>
+ *
  * @author Honza Lastovicka (lastovicka@avast.com)
  * @since 2016-11-03.
  */
 public final class Operand<T> implements FormulaSegment {
 
 
+    /**
+     * Gets an operand of given value.
+     * @param value must no be null
+     * @param <T> type of operand
+     *
+     * @return never null
+     */
     public static <T> Operand<T> operand(T value) {
         if (value == null) {
             throw new IllegalArgumentException("Operand value must not be null.");

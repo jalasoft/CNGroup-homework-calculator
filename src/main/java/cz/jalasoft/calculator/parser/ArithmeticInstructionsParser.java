@@ -1,81 +1,66 @@
 package cz.jalasoft.calculator.parser;
 
-import java.io.*;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 
 /**
+ * A parser of arithmetical instructions from input stream or reader.
+ *
+ * The parser understands a format where every line consists of:
+ * <ul>
+ *  <li>Name of operation - add, subtract, divide, multiply</li>
+ *  <li>operand - an integer number</li>
+ * </ul>
+ * The input lines must be terminated by a special line - word apply
+ * followed by an integer that servers as a first number of the arithmetical
+ * operations.
+ *
+ * Example:
+ *
+ * {@code
+ * add 5
+ * subtract 3
+ * multiply 2
+ * divide 90
+ * apply 6
+ * }
+ *
+ * this is equivalent to 6 + 5 - 3 * 2 / 90
+ *
+ * <strong>Warning: priorities of operators are not taken into account</strong>
+ *
  * @author Honza Lastovicka (lastovicka@avast.com)
  * @since 2016-11-03.
  */
-public final class ArithmeticInstructionsParser {
+public interface ArithmeticInstructionsParser {
 
-    private static final Pattern ARITHMETIC_INSTRUCTION_PATTERN = Pattern.compile("(add||subtract|multiply|divide|apply) (\\d+)");
+    /**
+     * Registers a listener of parsing.
+     * @param listener must not be null
+     * @throws IllegalArgumentException if listener is null
+     */
+    void registerListener(ArithmeticInstructionsParserListener listener);
 
-    private final AggregatingInstructionListener listenerAggregator = new AggregatingInstructionListener();
+    /**
+     * Start parsing arithmetical instructions from a given input stream.
+     *
+     * <strong>This method closes the stream after parsing.</strong>
+     *
+     * @param stream must not be null
+     * @throws IOException if an error occurred during reading instructions from the stream
+     * @throws IllegalArgumentException if stream is null
+     */
+    void parse(InputStream stream) throws IOException;
 
-    public void registerListener(ArithmeticInstructionsParserListener listener) {
-        if (listener == null) {
-            throw new IllegalArgumentException("Listener must not be null.");
-        }
-
-        listenerAggregator.addListener(listener);
-    }
-
-    public void parse(InputStream stream) throws IOException {
-        parse(new InputStreamReader(stream));
-    }
-
-    public void parse(Reader reader) throws IOException {
-        if (reader == null) {
-            throw new IllegalArgumentException("Reader must not be null.");
-        }
-
-        try (BufferedReader bufferedReader = new BufferedReader(reader)) {
-            String line;
-
-            while((line = bufferedReader.readLine()) != null) {
-                parseLine(line);
-            }
-        }
-    }
-
-    private void parseLine(String line) {
-        String lineInLowerCase = line.toLowerCase();
-
-        Matcher matcher = ARITHMETIC_INSTRUCTION_PATTERN.matcher(lineInLowerCase);
-
-        if (!matcher.matches()) {
-            listenerAggregator.proxy().onInvalidInstruction(line, "The instruction does not match pattern '" + ARITHMETIC_INSTRUCTION_PATTERN.pattern() + "'");
-            return;
-        }
-
-        String operation = matcher.group(1);
-        int operand = Integer.parseInt(matcher.group(2));
-
-        if (operation.equals("apply")) {
-            notifyApplyInstruction(operand);
-        } else {
-            notifyArithmeticInstruction(operation, operand);
-        }
-    }
-
-    private void notifyArithmeticInstruction(String operation, int operand) {
-        Optional<InstructionType> maybeInstructionType = InstructionType.fromToken(operation);
-
-        if (!maybeInstructionType.isPresent()) {
-            //programmatic bug
-            throw new RuntimeException("No instruction type available for operation '" + operation + "'.");
-        }
-
-        InstructionType instructionType = maybeInstructionType.get();
-
-
-        listenerAggregator.proxy().onArithmeticInstruction(instructionType, operand);
-    }
-
-    private void notifyApplyInstruction(int operand) {
-        listenerAggregator.proxy().onApplyInstruction(operand);
-    }
+    /**
+     * Start parsing arithmetical instructions from a given reader.
+     *
+     * <strong>This method closes the reader after parsing.</strong>
+     *
+     * @param reader must not be null
+     * @throws IOException if an error occurred during reading instructions from the reader
+     * @throws IllegalArgumentException if reader is null
+     */
+    void parse(Reader reader) throws IOException;
 }

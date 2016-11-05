@@ -7,6 +7,10 @@ import cz.jalasoft.calculator.formula.Operator;
 import java.util.LinkedList;
 
 /**
+ * A builder of {@link PostfixFormulaBuilder} allowing building
+ * postfix formula by adding operators and operands to the or beginning of
+ * the postfix form of formula.
+ *
  * @author Honza Lastovicka (lastovicka@avast.com)
  * @since 2016-11-03.
  */
