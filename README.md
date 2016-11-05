@@ -1,5 +1,5 @@
-# calculator
-A command line application performing arithmetical operation described in an external file.
+# Calculator
+A command line application performing arithmetical operations described in an external file.
 
 ## How to run the application
 
@@ -38,3 +38,16 @@ The last line of the file must be a special command - `apply` followed by an int
 represents a starting number that will be used as a first operand of the arithmetic instruction
 on the firsr line. Result of the operation is used as an operand of the second instruction etc.
 until one operand remains which is the final result.
+
+example:
+
+```
+add 4
+multiply 2
+subtract 2
+divide 3
+multiply 5
+multiply 3
+add 133
+apply 6
+```
