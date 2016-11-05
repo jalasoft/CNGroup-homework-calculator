@@ -19,7 +19,7 @@ public final class RegexBasedArithmeticInstructionsParser implements ArithmeticI
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RegexBasedArithmeticInstructionsParser.class);
 
-    private static final Pattern ARITHMETIC_INSTRUCTION_PATTERN = Pattern.compile("(add||subtract|multiply|divide|apply) (\\d+)");
+    private static final Pattern ARITHMETIC_INSTRUCTION_PATTERN = Pattern.compile("(add||subtract|multiply|divide|apply) (\\-?\\d+)");
 
 
     private final AggregatingInstructionListener listenerAggregator = new AggregatingInstructionListener();
@@ -68,7 +68,8 @@ public final class RegexBasedArithmeticInstructionsParser implements ArithmeticI
         }
 
         String operation = matcher.group(1);
-        int operand = Integer.parseInt(matcher.group(2));
+        String operandString = matcher.group(2);
+        int operand = Integer.parseInt(operandString);
 
         if (operation.equals("apply")) {
             notifyApplyInstruction(operand);

@@ -41,7 +41,7 @@ public class InstructionParserTest {
         Reader input = instructions(
                 "add 3",
                 "multiply 5",
-                "subtract 7",
+                "subtract -7",
                 "divide 2",
                 "apply 2");
 
@@ -50,7 +50,7 @@ public class InstructionParserTest {
         InOrder order = Mockito.inOrder(listener);
         order.verify(listener).onArithmeticInstruction(ADD, 3);
         order.verify(listener).onArithmeticInstruction(MULTIPLY, 5);
-        order.verify(listener).onArithmeticInstruction(SUBTRACT, 7);
+        order.verify(listener).onArithmeticInstruction(SUBTRACT, -7);
         order.verify(listener).onApplyInstruction(2);
         order.verifyNoMoreInteractions();
     }
