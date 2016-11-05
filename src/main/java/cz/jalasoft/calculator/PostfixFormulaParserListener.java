@@ -7,7 +7,6 @@ import cz.jalasoft.calculator.formula.postfix.PostfixFormula;
 import cz.jalasoft.calculator.formula.postfix.PostfixFormulaBuilder;
 import cz.jalasoft.calculator.parser.ArithmeticInstructionsParserListener;
 import cz.jalasoft.calculator.parser.InstructionType;
-import cz.jalasoft.calculator.parser.InvalidInstructionsException;
 
 import java.util.ArrayList;
 import java.util.EnumMap;

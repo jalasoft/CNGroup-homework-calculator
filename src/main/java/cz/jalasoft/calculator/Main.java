@@ -1,6 +1,5 @@
 package cz.jalasoft.calculator;
 
-import cz.jalasoft.calculator.parser.InvalidInstructionsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,15 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
+ * A starting point of the application.
+ *
+ * <p>
+ *     It starts a Spring application container,
+ *     loads and external file with arithmetical
+ *     instructions and finally invokes {@link Calculator}
+ *     to perform operations and prints the result.
+ * </p>
+ *
  * @author Honza Lastovicka (lastovicka@avast.com)
  * @since 2016-11-03.
  */

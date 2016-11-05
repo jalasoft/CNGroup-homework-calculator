@@ -1,4 +1,4 @@
-package cz.jalasoft.calculator.parser;
+package cz.jalasoft.calculator;
 
 import java.util.List;
 

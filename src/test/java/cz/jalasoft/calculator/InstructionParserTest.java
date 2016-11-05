@@ -3,7 +3,6 @@ package cz.jalasoft.calculator;
 import cz.jalasoft.calculator.parser.ArithmeticInstructionsParser;
 import cz.jalasoft.calculator.parser.ArithmeticInstructionsParserListener;
 
-import cz.jalasoft.calculator.parser.InvalidInstructionsException;
 import cz.jalasoft.calculator.parser.RegexBasedArithmeticInstructionsParser;
 import org.mockito.InOrder;
 import org.mockito.Mockito;

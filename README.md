@@ -1,6 +1,10 @@
 # Calculator
 A command line application performing arithmetical operations described in an external file.
 
+## How to build the application
+
+Invoke maven phase `package` and use the newly created jar file `Calculator-1.0-SNAPSHOT.jar` to run the application.
+
 ## How to run the application
 
 The application is based on *Spring* *Boot*. It uses several external libraries. Exception the *Spring*
