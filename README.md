@@ -1,9 +1,17 @@
 # Calculator
+
 A command line application performing arithmetical operations described in an external file.
 
 ## How to build the application
 
-Invoke maven phase `package` and use the newly created jar file `Calculator-1.0-SNAPSHOT.jar` to run the application.
+Invoke maven phase `package`: 
+
+```maven
+mvn package
+```
+
+and use the newly created jar file `Calculator-1.0-SNAPSHOT.jar` to run the application, that is placed in 
+directory `target`.
 
 ## How to run the application
 
